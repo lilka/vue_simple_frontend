@@ -1,58 +1,46 @@
 
- <template>
-  <v-data-table
-    :headers="headers"
-    :items="users"
-    :items-per-page="5"
-    class = "elevation-1">
+<template>
+ <v-data-table
+         :headers="headers"
+         :items="usersList"
+         :items-per-page="5"
+         class = "elevation-1">
 
-  </v-data-table>
- </template>
+ </v-data-table>
+</template>
 
 
 <script>
-import axios from 'axios';
 
-export default {
- data() {
-  return {
-   dialog: false,
-   headers: [
-    {
-     text: 'Name',
-     align: 'left',
-     sortable: true,
-     value: 'name'
-    },
-    { text: 'Surname', value: 'surname' },
-    { text: 'Age', value: 'age' },
-    { text: 'Actions', value: 'action', sortable: false },
-   ],
-   users: []
-  }
- },
+ export default {
+  data() {
+   return {
+    dialog: false,
+    headers: [
+     {
+      text: 'Name',
+      align: 'left',
+      sortable: true,
+      value: 'name'
+     },
+     { text: 'Surname', value: 'surname' },
+     { text: 'Age', value: 'age' },
+     { text: 'Actions', value: 'action', sortable: false },
+    ],
 
- methods: {
-  showUsers() {
-   const path = 'http://localhost:8888/api/user/';
-   axios.get(path)
-           .then((res) => {
-            console.log(res.data)
-            this.users = res.data;
-            console.log(this.users)
-
-           })
-           .catch((error) => {
-            // eslint-disable-next-line
-            console.error(error);
-           });
+   }
   },
- },
 
- created() {
-  this.showUsers();
- },
-};
+  mounted(){
+   this.$store.dispatch('showUsers')
+  },
+  computed: {
+   usersList() {
+    return this.$store.getters.getUsers
+   }
+  }
+
+ };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
