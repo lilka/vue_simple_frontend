@@ -1,23 +1,23 @@
 <template>
     <v-app>
-      
-      
-     <users></users> 
+
+
+        <router-view class="view"></router-view>
     </v-app>
 </template>
 
 <script>
-import Users from './components/Users';
 
-export default {
-    name: 'App',
+    export default {
+        name: 'App',
 
-    components: {
-        Users
-     },
+        components: {
 
-    data: () => ({
-        //
-    })
-};
+
+        },
+
+        data: () => ({
+            //
+        })
+    };
 </script>

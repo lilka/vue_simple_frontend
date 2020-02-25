@@ -1,23 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import { getField, updateField } from 'vuex-map-fields';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        users: []
+        users: [],
+        updatedUser:{
+            id: '',
+            name: '',
+            surname: '',
+            age: '',
+
+        },
     },
     getters:{
         getUsers: state => {
             return state.users
-        }
+        },
+        getUser: state => props => {
+            var id = props.id
+            var user = state.users.find(u => u.id == id) || {}
+            state.updatedUser.id = user.id
+            state.updatedUser.name = user.name
+            state.updatedUser.surname = user.surname
+            state.updatedUser.age = user.age
+            return user
+        },
+        getField,
     },
     mutations: {
         setUsers(state, users) {
-            // example of modifying before storing
             state.users = users
-        }
+        },
+
+
+        updateField,
     },
     actions:{
         showUsers(store) {
@@ -29,5 +48,11 @@ export default new Vuex.Store({
                     return store.state.users;
                 });
         },
+
+        editUser(store, user_id){
+            const path = `http://localhost:8888/api/user/${user_id}`;
+            axios.put(path, this.state.updatedUser).then(r => console.log(r))
+        },
+
     }
 })
