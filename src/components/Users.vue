@@ -35,6 +35,9 @@
   mounted() {
    this.$store.dispatch('showUsers');
   },
+  updated(){
+   this.$store.dispatch('showUsers');
+  },
   computed: {
    usersList() {
     return this.$store.getters.getUsers;
@@ -44,4 +47,9 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+ .elevation-1{
+  width: 800px;
+  margin-left: 350px;
+ }
+</style>

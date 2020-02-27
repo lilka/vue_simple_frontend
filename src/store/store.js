@@ -20,8 +20,8 @@ export default new Vuex.Store({
             return state.users
         },
         getUser: state => props => {
-            var id = props.id
-            var user = state.users.find(u => u.id == id) || {}
+            const id = props.id
+            const user = state.users.find(u => u.id == id) || {}
             state.updatedUser.id = user.id
             state.updatedUser.name = user.name
             state.updatedUser.surname = user.surname
@@ -49,8 +49,9 @@ export default new Vuex.Store({
                 });
         },
 
-        editUser(store, user_id){
-            const path = `http://localhost:8888/api/user/${user_id}`;
+        editUser(){
+            this.state.updatedUser.age  = Number(this.state.updatedUser.age)
+            const path = `http://localhost:8888/api/user/${this.state.updatedUser.id}`;
             axios.put(path, this.state.updatedUser).then(r => console.log(r))
         },
 
